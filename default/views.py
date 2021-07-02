@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, RedirectView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, RedirectView,CreateView,UpdateView,DeleteView
 from .models import Poll, Option
 
 # Create your views here.
@@ -28,8 +28,18 @@ class PollVote(RedirectView):
 
 class PollCreate(CreateView):
     model = Poll
-    fields = ['subject', 'desc']
-    # success_url = '/poll/'
+    fields = ['subject','desc']
+    #success_url = '/poll/'
 
     def get_success_url(self):
-        return "/poll/{}/".format(self.object.id)
+        return"/poll/{}/".format(self.object.id)
+class PollEdit(UpdateView):
+    model = poll
+    fields = ['subject','desc']
+
+    def get_success_url(self):
+        return"/poll/{}".format(self.object.id)
+
+class PollDelete(DetailView):
+    model = poll
+    success_url = '/poll/'
